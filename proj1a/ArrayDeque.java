@@ -7,7 +7,6 @@ public class ArrayDeque<T> {
     private int nextFirst;
     // the index position of the next added item from the end
     private int nextLast;
-
     /* the amount of memory that the program uses at any given time
     * is proportional to the number of items. The usage factor is
     * always at least 25% */
