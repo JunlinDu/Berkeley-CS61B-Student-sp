@@ -1,4 +1,4 @@
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T> {
     // the array on which the Class is based
     private T[] items;
     // the integer value that keeps track of the array size
@@ -36,6 +36,7 @@ public class ArrayDeque<T> {
     }
 
     /* adding an item as the first item of the array */
+    @Override
     public void addFirst(T item) {
         if (size == items.length) {
             resize(size * EXPANSION_FACTOR);
@@ -47,6 +48,7 @@ public class ArrayDeque<T> {
     }
 
     /* adding an item as the last item of the array */
+    @Override
     public void addLast(T item) {
         if (size == items.length) {
             resize(size * EXPANSION_FACTOR);
@@ -58,6 +60,7 @@ public class ArrayDeque<T> {
     }
 
     /* check if the array is empty */
+    @Override
     public boolean isEmpty() {
         if (size == 0) {
             return true;
@@ -66,11 +69,13 @@ public class ArrayDeque<T> {
     }
 
     /* return the size of the array */
+    @Override
     public int size() {
         return size;
     }
 
     /* print out the entire array by elements */
+    @Override
     public void printDeque() {
         for (int i = 0; i < size; i++) {
             System.out.print(items[(nextFirst + 1 + i) % items.length] + " ");
@@ -78,6 +83,7 @@ public class ArrayDeque<T> {
     }
 
     /* remove the first item from the array and return the removed item */
+    @Override
     public T removeFirst() {
         if (isEmpty()) {
             return null;
@@ -95,6 +101,7 @@ public class ArrayDeque<T> {
     }
 
     /* remove the last item from the array and return the removed item */
+    @Override
     public T removeLast() {
         if (isEmpty()) {
             return null;
@@ -112,6 +119,7 @@ public class ArrayDeque<T> {
     }
 
     /* return the item at (int index) index position of the array */
+    @Override
     public T get(int index) {
         if (index < 0 || index >= size) {
             return null;
