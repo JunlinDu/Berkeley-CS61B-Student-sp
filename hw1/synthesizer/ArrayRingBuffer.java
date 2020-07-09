@@ -20,12 +20,9 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
 
         @Override
         public T next() {
-            if(hasNext()) {
-                T currentItem = rb[cursorPosition];
-                cursorPosition = (cursorPosition + 1) / capacity();
-                return currentItem;
-            }
-            return null;
+            T currentItem = rb[cursorPosition];
+            cursorPosition = (cursorPosition + 1) / capacity();
+            return currentItem;
         }
     }
 
