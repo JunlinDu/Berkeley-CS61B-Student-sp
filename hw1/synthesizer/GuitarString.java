@@ -12,12 +12,18 @@ public class GuitarString {
     /* Create a guitar string of the given frequency.  */
     public GuitarString(double frequency) {
         this.buffer = new ArrayRingBuffer<>((int)Math.round(this.SR/frequency));
+        while (!buffer.isFull()) {
+            buffer.enqueue(0.0);
+        }
     }
 
 
     /* Pluck the guitar string by replacing the buffer with white noise. */
     public void pluck() {
-        for (int i = 0; i < buffer.capacity(); i++) {
+        while (!buffer.isEmpty()) {
+            buffer.dequeue();
+        }
+        while (!buffer.isFull()) {
             buffer.enqueue(Math.random() - 0.5);
         }
     }
@@ -27,15 +33,11 @@ public class GuitarString {
      */
     public void tic() {
         Double dequeuedItem = buffer.dequeue();
-        Double frontItem;
         buffer.enqueue(this.DECAY * 0.5 * (dequeuedItem + buffer.peek()));
     }
 
     /* Return the double at the front of the buffer. */
     public double sample() {
-        if(!buffer.isEmpty()) {
-            return buffer.peek();
-        }
-        return 0;
+        return buffer.peek();
     }
 }
