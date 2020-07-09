@@ -17,7 +17,6 @@ public class TERenderer {
     private int height;
     private int xOffset;
     private int yOffset;
-
     /**
      * Same functionality as the other initialization method. The only difference is that the xOff
      * and yOff parameters will change where the renderFrame method starts drawing. For example,
@@ -69,7 +68,7 @@ public class TERenderer {
      * given in units of tiles.
      *
      *              positions   xOffset |xOffset+1|xOffset+2| .... |xOffset+world.length
-     *                     
+     *
      * startY+world[0].length   [0][M-1] | [1][M-1] | [2][M-1] | .... | [N-1][M-1]
      *                    ...    ......  |  ......  |  ......  | .... | ......
      *               startY+2    [0][2]  |  [1][2]  |  [2][2]  | .... | [N-1][2]
