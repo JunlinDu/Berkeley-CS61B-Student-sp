@@ -2,15 +2,14 @@ package byog.lab5;
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
-
 import java.util.Random;
 /**
  * Draws a world consisting of hexagonal regions.
  */
 public class HexWorld {
-    private static final int WIDTH = 100;
-    private static final int HEIGHT = 80;
-    private static final long SEED = 2873163;
+    private static final int WIDTH = 80;
+    private static final int HEIGHT = 60;
+    private static final long SEED = 295394;
     private static final Random RANDOM = new Random(SEED);
 
     /**
@@ -116,9 +115,10 @@ public class HexWorld {
             }
         }
 
-        Position p = new Position(10, 50);
+        Position p = new Position(10, 30);
         HexWorld hex = new HexWorld();
         hex.drawTerrain(p, 4, 3, terrain);
+        System.out.println(TETile.toString(terrain));
         renderer.renderFrame(terrain);
     }
 }

@@ -1,5 +1,4 @@
 package byog.Core;
-
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
@@ -27,7 +26,7 @@ public class WorldGeneratorV1 {
         Position p = new Position(10, 20);
         V1Room room = new V1Room(4, 20, p);
         room.addTo(world);
-        room.openHallwayPort(world, new Position(10, 17));
+        room.openHallwayPort(world, new Position(10, 18));
         V1Hallway hallway = new V1Hallway(false, 5, new Position(40, 10));
         hallway.addTo(world);
         System.out.println(TETile.toString(world));

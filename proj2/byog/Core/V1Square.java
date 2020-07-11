@@ -62,4 +62,8 @@ public class V1Square {
             throw new Error("Square Must Be Opened On Sides (Except For Corners)");
         }
     }
+
+    public void attachComponent () {
+
+    }
 }
