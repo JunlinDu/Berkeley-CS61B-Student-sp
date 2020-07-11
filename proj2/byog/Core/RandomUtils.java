@@ -13,7 +13,6 @@ import java.util.Random;
 *
  */
 public class RandomUtils {
-
     /**
      * Returns a random real number uniformly in [0, 1).
      *
@@ -36,7 +35,6 @@ public class RandomUtils {
         }
         return random.nextInt(n);
     }
-
 
     /**
      * Returns a random long integer uniformly in [0, n).
