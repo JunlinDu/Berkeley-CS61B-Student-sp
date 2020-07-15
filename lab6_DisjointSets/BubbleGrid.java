@@ -4,30 +4,37 @@ public class BubbleGrid {
     private int[][] gird;
     private UnionFind disjointSet;
     private int columnSize;
-    private static final long SEED = 2873163;
-    private static final Random RANDOM = new Random(SEED);
     /**
      * [] [] [] [] [] []
      * -- -- -- -- -- --
      * -- -- -- -- -- --
      * -- -- -- -- -- --
      * -- -- -- -- -- -- */
-    public BubbleGrid(int rowSize, int columnSize) {
-        gird = new int[rowSize][columnSize];
-        for (int i = 0; i < gird.length; i++) {
-            for (int x = 0; x < gird[i].length; x++) {
-                gird[x][i] = RANDOM.nextInt(2);
-            }
-        }
-        this.columnSize = columnSize;
+    public BubbleGrid() {
+        gird = new int[][]
+                {{1, 1, 1, 1}, {1, 0, 1, 1}, {0, 0, 0, 1}};
+        this.columnSize = gird.length;
+    }
 
+    public int[][] getGird() {
+        return gird;
     }
 
     public int[] popBubbles(int [][] darts) {
         return null;
     }
 
+    private static void print2DIntArray(int[][] array) {
+        for (int i = 0; i < array.length; i++) {
+            for (int x = 0; x < array[x].length; x++) {
+                System.out.print(array[x][i] + " ");
+            }
+            System.out.println();
+        }
+    }
+
     public static void main(String[] args) {
-        //
+        BubbleGrid bubbleGrid = new BubbleGrid();
+        print2DIntArray(bubbleGrid.getGird());
     }
 }
