@@ -23,8 +23,9 @@ public class TestBSTMap {
         for (int i = 0; i < 455; i++) {
             b.put("hi" + i, 1+i);
             //make sure put is working via containsKey and get
-            assertTrue( null != b.get("hi" + i) && (b.get("hi"+i).equals(1+i))
-                        && b.containsKey("hi" + i));
+            assertTrue( null != b.get("hi" + i));
+            assertTrue((b.get("hi"+i).equals(1+i)));
+            assertTrue(b.containsKey("hi" + i));
         }
         assertEquals(455, b.size());
         b.clear();
