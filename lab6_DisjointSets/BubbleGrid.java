@@ -47,15 +47,16 @@ public class BubbleGrid {
     }
 
     public static void main(String[] args) {
-        BubbleGrid bubbleGrid = new
-                BubbleGrid(new int[][]{{1, 1, 0}, {1, 0, 0}, {1, 1, 0}, {1, 1, 1}});
-        print2DIntArray(bubbleGrid.getGird());
-
-        System.out.println();
-        System.out.println("Testing");
-        System.out.println(Arrays.toString(bubbleGrid.getGird()[1]));
-        System.out.println(bubbleGrid.getGird()[1][2]);
-        System.out.println("Row Size " + bubbleGrid.rowSize);
-        System.out.println("Column Size " + bubbleGrid.columnSize);
+//        BubbleGrid bubbleGrid = new
+//                BubbleGrid(new int[][]{{1, 1, 0}, {1, 0, 0}, {1, 1, 0}, {1, 1, 1}});
+//        print2DIntArray(bubbleGrid.getGird());
+//
+//        System.out.println();
+//        System.out.println("Testing");
+//        System.out.println(Arrays.toString(bubbleGrid.getGird()[1]));
+//        System.out.println(bubbleGrid.getGird()[1][2]);
+//        System.out.println("Row Size " + bubbleGrid.rowSize);
+//        System.out.println("Column Size " + bubbleGrid.columnSize);
+        int[][] a = new int[2][6];
     }
 }
