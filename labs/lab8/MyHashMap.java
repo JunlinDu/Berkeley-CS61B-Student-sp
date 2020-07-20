@@ -3,12 +3,25 @@ import java.util.*;
 import static org.junit.Assert.assertTrue;
 
 public class MyHashMap<K, V> implements Map61B<K, V> {
-    /* Alternative implementation: using inner class Entry, replace ULLMAP<K, V> with ArrayList<Entry>*/
+
+    private class Entry<K, V> {
+
+        K key;
+
+        V value;
+
+        Entry(K k, V v) {
+            key = k;
+            value = v;
+        }
+
+    }
+
     private final int INIT_CAPACITY;
     private final double LOAD_FACTOR;
     private int m;
     private int n;
-    private ULLMap<K, V>[] buckets;
+    private ArrayList<Entry<K, V>>[] buckets;
     private HashSet<K> keySet;
 
     public MyHashMap () {
@@ -29,9 +42,9 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     }
 
     private void iniMap(int size) {
-        buckets = new ULLMap[size];
+        buckets = new ArrayList[size];
         for (int i = 0; i < buckets.length; i++) {
-            buckets[i] = new ULLMap();
+            buckets[i] = new ArrayList<>();
         }
     }
 
@@ -54,7 +67,12 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public V get(K key) {
-        return this.buckets[hash(key, m)].get(key);
+        if (containsKey(key)) {
+            int index = hash(key, this.m);
+            for (Entry<K, V> entry: this.buckets[index])
+                if (entry.key.equals(key)) return entry.value;
+        }
+        return null;
     }
 
     @Override
@@ -62,34 +80,40 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         return this.n;
     }
 
+    public void put(Entry<K, V> entry, ArrayList<Entry<K, V>>[] buckets) {
+        buckets[hash(entry.key, buckets.length)].add(entry);
+    }
+
     @Override
     public void put(K key, V value) {
         if (!containsKey(key)) {
-            this.buckets[hash(key, m)].put(key, value);
+            put(new Entry<K, V>(key, value), this.buckets);
+            this.keySet.add(key);
             this.n++;
             if(this.n > m * LOAD_FACTOR) {
                 this.buckets = resize(this.buckets);
                 this.m *= 2;
             }
         } else {
-            this.buckets[hash(key, m)].put(key, value);
+            for (Entry<K, V> entry : this.buckets[hash(key, m)]) {
+                if (entry.key.equals(key)) {
+                    entry.value = value;
+                }
+            }
         }
     }
 
-    private ULLMap<K, V>[] resize(ULLMap<K, V>[] buckets) {
-        ULLMap<K, V>[] newBuckets = new ULLMap[m * 2];
+    private ArrayList<Entry<K, V>>[] resize(ArrayList<Entry<K, V>>[] buckets) {
+        ArrayList<Entry<K, V>>[] newBuckets = new ArrayList[m * 2];
 
         for (int i = 0; i < newBuckets.length; i++) {
-            newBuckets[i] = new ULLMap();
+            newBuckets[i] = new ArrayList<>();
         }
 
-        for (ULLMap<K, V> list : buckets) {
-            Iterator<K> itr = list.iterator();
-            while (itr.hasNext()) {
-                K key = itr.next();
-                ULLMap newList = newBuckets[hash(key, m * 2)];
-                newList.put(key, list.get(key));
-            }
+        Iterator<K> itr = this.keySet.iterator();
+        while (itr.hasNext()) {
+            K key = itr.next();
+            put(new Entry<>(key, get(key)), newBuckets);
         }
 
         return newBuckets;
@@ -97,14 +121,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public Set<K> keySet() {
-        Set<K> set = new HashSet<>();
-        for (ULLMap<K, V> list: this.buckets) {
-            Iterator<K> itr = list.iterator();
-            while(itr.hasNext()) {
-                set.add(itr.next());
-            }
-        }
-        return set;
+        return this.keySet;
     }
 
     @Override
