@@ -1,5 +1,8 @@
 package bearmaps;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.TreeMap;
@@ -127,20 +130,16 @@ public class ArrayHeapMinPQ<I> implements ExtrinsicMinPQ<I> {
     /* Demote a node down the hierarchy to the position that it belongs to */
     private void sink(int index) {
         if (leftChild(index) > size() || rightChild(index) > size()) return;
-
+        int oldIndex = index;
         if (lessThan(leftChild(index), index) || lessThan(rightChild(index), index)) {
-            if (lessThan(leftChild(index), rightChild(index))) {
-                swap(leftChild(index), index);
-                sink(leftChild(index));
-            } else {
-                swap(rightChild(index), index);
-                sink(rightChild(index));
-            }
+            index = lessThan(leftChild(index), rightChild(index))?
+                    leftChild(index) : rightChild(index);
         }
+        swap(index, oldIndex);
+        sink(index);
     }
 
     /* remove the smallest item from the PQ */
-    /*TODO THIS METHOD NEEDS TO BE EDITED*/
     @Override
     public I removeSmallest() {
         if (this.minHeap.size() == 1) throw new NoSuchElementException();
@@ -150,6 +149,8 @@ public class ArrayHeapMinPQ<I> implements ExtrinsicMinPQ<I> {
         this.minHeap.set(1, this.minHeap.get(size()));
         this.minHeap.remove(size());
         sink(1);
+
+        if (size() == 0) return null;
         return getSmallest();
     }
 
@@ -191,6 +192,5 @@ public class ArrayHeapMinPQ<I> implements ExtrinsicMinPQ<I> {
             arr[i] = pq.minHeap.get(i).item;
         }
         PrintHeapDemo.printFancyHeapDrawing(arr);
-
     }
 }
