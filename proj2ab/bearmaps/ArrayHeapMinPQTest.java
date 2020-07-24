@@ -38,21 +38,44 @@ public class ArrayHeapMinPQTest {
     public void TestRuntime() {
         ArrayHeapMinPQ<String> pq = new ArrayHeapMinPQ<>();
         NaiveMinPQ<String> npq = new NaiveMinPQ<>();
-
-        int num = 10000000;
+        System.out.println("Total time elapsed for: ");
+        System.out.println();
+        int num = 100000;
         long start = System.currentTimeMillis();
-        for (int i = 0; i < num; i ++) {
-            pq.add("Hi" + Integer.valueOf(i).toString(), i);
-        }
+        for (int i = 0; i < num; i ++) pq.add("Hi" + Integer.valueOf(i).toString(), i);
         long end = System.currentTimeMillis();
-        System.out.println("Total time elapsed (ArrayHeapMinPQ): " + (end - start)/1000.0 +  " seconds.");
+        System.out.println("Add (ArrayHeapMinPQ): " + (end - start)/1000.0 +  " seconds.");
 
         start = System.currentTimeMillis();
-        for (int i = 0; i < num; i ++) {
-            npq.add("Hi" + Integer.valueOf(i).toString(), i);
-        }
+        for (int i = 0; i < num; i ++) npq.add("Hi" + Integer.valueOf(i).toString(), i);
         end = System.currentTimeMillis();
-        System.out.println("Total time elapsed (NativeImplementation): " + (end - start)/1000.0 +  " seconds.");
+        System.out.println("Add (NativeImplementation): " + (end - start)/1000.0 +  " seconds.");
+
+
+
+        System.out.println();
+        start = System.currentTimeMillis();
+        for (int i = 0; i < 50000; i++) pq.changePriority("Hi" + i, num - i);
+        end = System.currentTimeMillis();
+        System.out.println("changePriority (ArrayHeapMinPQ): " + (end - start)/1000.0 +  " seconds.");
+
+        start = System.currentTimeMillis();
+        for (int i = 0; i < 50000; i++) npq.changePriority("Hi" + i, num - i);
+        end = System.currentTimeMillis();
+        System.out.println("changePriority (NativeImplementation): " + (end - start)/1000.0 +  " seconds.");
+
+
+
+        System.out.println();
+        start = System.currentTimeMillis();
+        for (int i = 0; i < 50000; i++) pq.contains("Hi" + i);
+        end = System.currentTimeMillis();
+        System.out.println("contains (ArrayHeapMinPQ): " + (end - start)/1000.0 +  " seconds.");
+
+        start = System.currentTimeMillis();
+        for (int i = 0; i < 50000; i++) npq.contains("Hi" + i);
+        end = System.currentTimeMillis();
+        System.out.println("contains (NativeImplementation): " + (end - start)/1000.0 +  " seconds.");
 
     }
 }

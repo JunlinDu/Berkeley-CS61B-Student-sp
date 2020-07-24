@@ -100,6 +100,20 @@ public class ArrayHeapMinPQ<I> implements ExtrinsicMinPQ<I> {
         return;
     }
 
+    /* Demote a node down the hierarchy to the position that it belongs to */
+    private void sink(int index) {
+        if (leftChild(index) > size() || rightChild(index) > size()) return;
+        if (lessThan(leftChild(index), index) || lessThan(rightChild(index), index)) {
+            if (lessThan(leftChild(index), rightChild(index))) {
+                swap(leftChild(index), index);
+                sink(leftChild(index));
+            } else {
+                swap(rightChild(index), index);
+                sink(rightChild(index));
+            }
+        }
+    }
+
     /* Add a node */
     @Override
     public void add(I item, double priority) {
@@ -127,18 +141,6 @@ public class ArrayHeapMinPQ<I> implements ExtrinsicMinPQ<I> {
         return this.minHeap.get(1).getItem();
     }
 
-    /* Demote a node down the hierarchy to the position that it belongs to */
-    private void sink(int index) {
-        if (leftChild(index) > size() || rightChild(index) > size()) return;
-        int oldIndex = index;
-        if (lessThan(leftChild(index), index) || lessThan(rightChild(index), index)) {
-            index = lessThan(leftChild(index), rightChild(index))?
-                    leftChild(index) : rightChild(index);
-        }
-        swap(index, oldIndex);
-        sink(index);
-    }
-
     /* remove the smallest item from the PQ */
     @Override
     public I removeSmallest() {
@@ -149,9 +151,7 @@ public class ArrayHeapMinPQ<I> implements ExtrinsicMinPQ<I> {
         this.minHeap.set(1, this.minHeap.get(size()));
         this.minHeap.remove(size());
         sink(1);
-
-        if (size() == 0) return null;
-        return getSmallest();
+        return size() == 0? null : getSmallest();
     }
 
     /* return the size of the PQ */
@@ -177,6 +177,7 @@ public class ArrayHeapMinPQ<I> implements ExtrinsicMinPQ<I> {
     public static void main(String[] args) {
         ArrayHeapMinPQ<String> pq = new ArrayHeapMinPQ<>();
         pq.add("1", 1.0);
+        pq.removeSmallest();
         pq.add("2", 2.0);
         pq.add("3", 3.0);
         pq.add("4", 4.0);
